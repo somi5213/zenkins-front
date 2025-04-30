@@ -44,14 +44,11 @@ pipeline {
         // 오라클 접속시 필요한 환경변수가 더 있을 수 있음. 
         stage('Deploy') {
             steps {
-                sh '''
-                    docker container rm -f worklyproject-front || true
-                    docker container run \
-                        -d \
-                        -p 8004:8004 \
-                        --name=worklyproject-front \
-                        ${strDockerImage}
-                '''
+                withCredentials([sshUserPrivateKey(credentialsId: 'EC2_SSH_KEY', keyFileVariable: 'EC2_KEY')]) {
+                    bat """
+                        ssh -i %EC2_KEY% -o StrictHostKeyChecking=no ec2-user@15.164.170.23 "docker container rm -f workly-front || true && docker run -d -p 8004:8004 --name=workly-front ${strDockerImage}"
+                    """
+                }
             }
         }        
     }
