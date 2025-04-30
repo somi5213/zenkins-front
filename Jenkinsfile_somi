@@ -46,7 +46,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'EC2_SSH_KEY', keyFileVariable: 'EC2_KEY')]) {
                     bat """
-                        ssh -i %EC2_KEY% -o StrictHostKeyChecking=no ec2-user@15.164.170.23 "docker container rm -f workly-front || true && docker run -d -p 8004:8004 --name=workly-front ${strDockerImage}"
+                        ssh -i %EC2_KEY% -o StrictHostKeyChecking=no ec2-user@15.164.170.23 "docker container rm -f workly-front || true && docker run -d -p 5173:5173 --name=workly-front ${strDockerImage}"
                     """
                 }
             }
