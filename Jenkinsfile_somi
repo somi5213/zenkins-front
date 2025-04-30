@@ -6,8 +6,8 @@ pipeline {
     agent any
     environment {
         strDockerTag = "${TODAY}_${BUILD_ID}"
-        strDockerImage ="cysbunker/worklyproject:${strDockerTag}"
-        strGitUrl = "https://github.com/yunmomoa/Jenkins_CI-CD.git"
+        strDockerImage ="pcotton2/workly-front:${strDockerTag}"
+        strGitUrl = "https://github.com/somi5213/zenkins-front.git"
     }
 
     stages {
